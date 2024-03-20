@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { categoryState, toDoState } from "../atoms";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { categoryState, toDoState, customCategoryState } from "../atoms";
 
 interface IForm {
   toDo: string;
@@ -8,7 +8,14 @@ interface IForm {
 
 function CreateToDo() {
   const setToDos = useSetRecoilState(toDoState);
+  const categories = useRecoilValue(customCategoryState);
   const currentCategory = useRecoilValue(categoryState);
+  const [category, setCategory] = useRecoilState(categoryState);
+  const sortCategory = (event: React.FormEvent<HTMLSelectElement>) => {
+    // console.log(event.currentTarget.value);
+    // 이 value를 categoryState atom과 연결해야함
+    setCategory(event.currentTarget.value as any);
+  };
 
   const { register, handleSubmit, setValue } = useForm<IForm>();
 
@@ -29,6 +36,14 @@ function CreateToDo() {
         })}
         placeholder="Write a to do"
       ></input>
+      <select value={category} onInput={sortCategory}>
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
+
       <button> ADD </button>
     </form>
   );

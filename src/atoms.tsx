@@ -17,6 +17,13 @@ export interface IToDo {
   // typescript는 데이터 타입 말고도 어떤 내용이 들어가야하는 지도 명시할수 있음
 }
 
+// (기존 + 커스텀)카테고리 목록
+export const customCategoryState = atom<string[]>({
+  key: "customCategory",
+  default: [Categories.TO_DO, Categories.DOING, Categories.DONE],
+});
+
+// toDo의 카테고리 속성
 export const categoryState = atom<Categories>({
   key: "category",
   default: Categories.TO_DO,
