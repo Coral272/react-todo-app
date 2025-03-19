@@ -25,6 +25,7 @@ function ToDo({ text, id, category }: IToDo) {
       ];
     });
   };
+  /** Delete기능 만들기 **/
 
   return (
     <li key={id}>
